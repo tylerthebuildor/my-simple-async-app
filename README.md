@@ -1,11 +1,12 @@
-# My Simple React & Redux App
+# My Simple Redux Thunk App
 
-A dead simple React & Redux implementation!
+A dead simple Redux Thunk implementation!
 
 ## Setup
 
 ```bash
-git clone
-cd my-simple-app
+git clone https://github.com/tylerbuchea/my-simple-async-app
+cd my-simple-async-app
+npm install
 npm start
 ```

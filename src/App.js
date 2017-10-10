@@ -1,51 +1,50 @@
-import React, {
-  Component,
-} from 'react';
+import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import {
-  activateGeod,
-  closeGeod,
-} from './redux';
+import { getRepos, clearRepos } from './redux';
 
 // App.js
 export class App extends Component {
+  state = { username: 'tylerbuchea' };
+
+  componentDidMount() {
+    this.updateRepoList(this.state.username);
+  }
+
+  updateRepoList = username => this.props.getRepos(username);
 
   render() {
     return (
       <div>
-
-        <h1>{this.props.geod.title || 'Hello World!'}</h1>
-
-        {this.props.geod.title ?
-          <button onClick={this.props.closeGeod}>
-            Exit Geod
-          </button> :
-          <button onClick={() => this.props.activateGeod({ title: 'I am a geo dude!' })}>
-            Click Me!
-          </button>
-       }
-
+        <h1>I AM AN ASYNC APP!!!</h1>
+        <strong>Github username: </strong>
+        <input
+          type="text"
+          value={this.state.username}
+          onChange={ev => this.setState({ username: ev.target.value })}
+          placeholder="Github username..."
+        />
+        <button onClick={() => this.updateRepoList(this.state.username)}>
+          Get Lastest Repos
+        </button>
+        <ul>
+          {this.props.repos.map((repo, index) => (
+            <li key={index}>
+              <a href={repo.html_url} target="_blank">
+                {repo.name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
-
 }
 
 // AppContainer.js
-const mapStateToProps = (state, ownProps) => ({
-  geod: state.geod,
-});
-
-const mapDispatchToProps = {
-  activateGeod,
-  closeGeod,
-};
-
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+const mapStateToProps = (state, ownProps) => ({ repos: state.repos });
+const mapDispatchToProps = { getRepos, clearRepos };
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default AppContainer;
