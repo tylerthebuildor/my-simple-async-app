@@ -10,11 +10,17 @@ export const addRepos = repos => ({
 
 export const clearRepos = () => ({ type: 'CLEAR_REPOS' });
 
-export const getRepos = username => dispatch =>
-  fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-    .then(response => response.json())
-    .then(responseBody => dispatch(addRepos(responseBody)))
-    .catch(() => dispatch(clearRepos()));
+export const getRepos = username => async dispatch => {
+  try {
+    const url = `https://api.github.com/users/${username}/repos?sort=updated`;
+    const response = await fetch(url);
+    const responseBody = await response.json();
+    dispatch(addRepos(responseBody));
+  } catch (error) {
+    console.error(error);
+    dispatch(clearRepos());
+  }
+};
 
 // reducers.js
 export const repos = (state = [], action) => {
