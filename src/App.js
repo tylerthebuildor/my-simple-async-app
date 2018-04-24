@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { getRepos, clearRepos } from './redux';
+import { getRepos } from './redux';
 
 // App.js
 export class App extends Component {
@@ -44,7 +44,7 @@ export class App extends Component {
 
 // AppContainer.js
 const mapStateToProps = (state, ownProps) => ({ repos: state.repos });
-const mapDispatchToProps = { getRepos, clearRepos };
+const mapDispatchToProps = { getRepos };
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default AppContainer;
