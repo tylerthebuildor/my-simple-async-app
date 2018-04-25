@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AppContainer from './App';
 import './index.css';
 
 // Add these imports - Step 1
@@ -10,7 +10,7 @@ import { store } from './redux';
 // Wrap existing app in Provider - Step 2
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   document.getElementById('root')
 );
